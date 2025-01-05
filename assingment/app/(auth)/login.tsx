@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import TopBar from "../Components/TopBar";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -20,12 +21,9 @@ export default function Login() {
         <View style={styles.mainContainer}>
           <Text style={styles.TextStyles}>Uov Student Care</Text>
         </View>
+        <TopBar />
 
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require("../../assets/cropped-UoV_Logo.png")}
-          />
           <Text style={styles.TextStyles1}>Student Login</Text>
           <TextInput
             value={username}
@@ -37,7 +35,7 @@ export default function Login() {
           <TouchableOpacity
             style={styles.btnStyles}
             onPress={() => {
-              router.push("/(tabs)");
+              router.push("./(home)/(tabs)/Profile");
             }}
           >
             <Text style={styles.TextStyles}>Login</Text>
