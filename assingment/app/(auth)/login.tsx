@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -11,10 +11,22 @@ import {
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import TopBar from "../Components/TopBar";
+import { students } from "../Db/StudentsDb";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigation = useNavigation();
+  const [error, setError] = useState("");
+  const logging = () => {
+    const student = students.find((s) => s.username === username);
+    if (student && student.password === password) {
+      navigation.navigate("../(home)/(tabs)/Profile");
+    } else {
+      setError("Invalid username or password");
+    }
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -26,18 +38,19 @@ export default function Login() {
         <View style={styles.imageContainer}>
           <Text style={styles.TextStyles1}>Student Login</Text>
           <TextInput
-            value={username}
             placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
             style={styles.inputStyles}
           />
-          <TextInput placeholder="Password" style={styles.inputStyles} />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            style={styles.inputStyles}
+          />
 
-          <TouchableOpacity
-            style={styles.btnStyles}
-            onPress={() => {
-              router.push("./(home)/(tabs)/Profile");
-            }}
-          >
+          <TouchableOpacity style={styles.btnStyles} onPress={logging}>
             <Text style={styles.TextStyles}>Login</Text>
           </TouchableOpacity>
         </View>
