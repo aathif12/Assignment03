@@ -21,7 +21,7 @@ export default function Login() {
   const logging = () => {
     const student = students.find((s) => s.username === username);
     if (student && student.password === password) {
-      navigation.navigate("../(home)/(tabs)/Profile");
+      navigation.navigate("Profile", username);
     } else {
       setError("Invalid username or password");
     }
